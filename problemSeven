@@ -1,0 +1,73 @@
+Question -->  https://www.codechef.com/problems/MXSUBMT
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int m = sc.nextInt();
+		int[][] matrix = new int[n][m];
+		for (int i=0; i<n; i++){
+		    for (int j = 0 ; j<m;j++ ){
+		        matrix[i][j] = sc.nextInt();
+		    } 
+		} 
+		Codechef x = new Codechef();
+		System.out.println(x.max_sum(matrix));
+	}
+	
+	
+    
+
+    public int kadanesum(int[] arr){
+        int max = Integer.MIN_VALUE;
+        int curr = 0 ; 
+        
+        for (int i = 0; i < arr.length; i++) {
+            curr+=arr[i];
+            if(curr > max){
+                max = curr;
+                
+            }
+            
+            if(curr < 0){
+                curr = 0 ;
+                
+            }
+        }
+
+        return max;
+    }
+    
+     public int max_sum(int[][] matrix){
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        
+        int[] ans = new int[rows];
+        int max = Integer.MIN_VALUE;
+        for(int left = 0 ; left<cols; left++){
+
+            Arrays.fill(ans , 0);
+
+            for(int right = left; right < cols ; right++){
+                for(int k = 0 ; k < rows ; k++){
+                    ans[k]+=matrix[k][right];
+                }
+
+                int curr = kadanesum(ans);
+                if(max < curr){
+                    max = curr;
+                }
+            }
+        }
+
+        return max;
+	}
+}
